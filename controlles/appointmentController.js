@@ -1,0 +1,1 @@
+const Appoinment = require ('../models/Appoinment.js')

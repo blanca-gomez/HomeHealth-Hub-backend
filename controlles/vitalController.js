@@ -1,0 +1,1 @@
+const Vital = require('../models/Vital')

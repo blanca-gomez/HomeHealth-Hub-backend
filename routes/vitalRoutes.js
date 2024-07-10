@@ -1,0 +1,1 @@
+// Rutas específicas para constantes vitales
