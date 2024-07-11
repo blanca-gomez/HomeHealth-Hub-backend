@@ -11,6 +11,19 @@ const createUser = async (req,res) => {
     }
 }
 
+const getUserById = async (req,res) => {
+    try{
+        const {id} = req.params;
+        const user = await User.findById(id);
+        if(!user){
+            return res.status(404).json({message : "User not found"})
+        }
+        res.status(200).json(user)
+    }catch (error){
+        next(error)
+    }
+}
+
 
 const getAllUsers = async (req,res) => {
     try{
@@ -54,5 +67,6 @@ module.exports = {
     createUser,
     getAllUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserById
 }
