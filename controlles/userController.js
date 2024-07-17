@@ -1,7 +1,6 @@
 const User = require ('../models/User.js')
 
 
-
 const getUserProfile = async (req,res) => {
     try{
         const user = await User.findById(req.userId);

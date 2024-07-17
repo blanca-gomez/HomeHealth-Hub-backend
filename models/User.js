@@ -8,13 +8,7 @@ const userSchema = new mongoose.Schema({
     age: { type: Number },
     allergies: { type: [String] },
     medicalHistory: { type: String }, 
-    emergencyContacts: [
-      {
-        name: { type: String, required: true },
-        relation: { type: String, required: true },
-        phone: { type: String, required: true }
-      }
-    ]
+    emergencyContacts: {type:Number}
   });
 
 const User = mongoose.model('user', userSchema);

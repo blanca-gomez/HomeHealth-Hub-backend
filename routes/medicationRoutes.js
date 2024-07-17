@@ -1,7 +1,7 @@
 // Rutas específicas para medicaciones
 const express = require('express');
 const router = express.Router();
-const {verifyToken} = '../middlewares/authJwt.js'
+const {verifyToken} = require('../middlewares/authJwt.js')
 
 const {
     createMedication,

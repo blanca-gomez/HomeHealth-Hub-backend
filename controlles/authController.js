@@ -38,7 +38,7 @@ const signIn = async (req, res) => {
         if (!matchPassword) {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
-        const token = jwt.sign({ userId: user._id }, config.SECRET, {
+        const token = jwt.sign({ userId: User._id }, config.SECRET, {
             expiresIn: 86400 
         });
         res.cookie('token', token, {httpOnly:true})
