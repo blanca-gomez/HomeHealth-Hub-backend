@@ -39,10 +39,22 @@ const signIn = async (req, res) => {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
         const token = jwt.sign({ userId: userFound._id }, config.SECRET, {
-            expiresIn: 86400 
+            expiresIn: 0 
         });
-        res.cookie('token', token, {httpOnly:true})
-        res.status(200).json({ message: 'Se ha iniciado sesión correctamente', user:userFound }); 
+        res.cookie('token', token, {httpOnly:true,secure: true,sameSite: 'none'})
+        res.status(200).json({
+            message: 'Se ha iniciado sesión correctamente',
+            user: {
+                _id: userFound._id,
+                firstName: userFound.firstName,
+                lastName: userFound.lastName,
+                email: userFound.email,
+                age: userFound.age,
+                allergies: userFound.allergies,
+                medicalHistory: userFound.medicalHistory
+            },
+            token
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({message: 'Error al iniciar el usuario'})

@@ -14,8 +14,8 @@ const createMedication = async (req,res) => {
 
 const getAllMedication = async (req,res) => {
     try{
-        const {userId} = req.params;
-        const medications = await Medication.findById(userId);
+        const {userId} = req.userId;
+        const medications = await Medication.find(userId);
         res.status(200).json(medications)
     }catch(error){
         res.status(500).json({message: 'cannot get medications', error: error.message})
