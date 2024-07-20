@@ -11,11 +11,8 @@ const {
 } = require('../controlles/userController');
 
 
-router.get('/myprofile', verifyToken, getUserProfile)
+router.get('/:id', verifyToken, getUserProfile)
 
-router.put('/myprofile', verifyToken, updateUserProfile);
-
-router.delete('/myprofile', verifyToken, deleteUserProfile);
 
 
 module.exports = router;

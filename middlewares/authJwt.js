@@ -3,7 +3,7 @@ const config = require('../config/config');
 const User = require('../models/User');
 
 const verifyToken = async (req, res, next) => {
-    const token = req.cookies.token || req.headers['authorization']?.split(' ')[1]; // Token desde cookies o headers
+    const token = req.cookies.token || req.headers['authorization']?.split(' ')[1]; 
 
     if (!token) {
         return res.status(401).json({ message: 'Unauthorized' });
@@ -11,6 +11,7 @@ const verifyToken = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, config.SECRET);
+        console.log(decoded)
         const user = await User.findById(decoded.userId);
         if (!user) {
             return res.status(401).json({ message: 'Unauthorized' });

@@ -1,24 +1,44 @@
 const Medication = require ('../models/Medication.js')
 
 const createMedication = async (req,res) => {
-    try{
-        const {userId} = req;
-        const medication = await Medication.create({...req.body, userId});
-        res.status(201).json({ message: 'medication successfully added', medication })
+    const { medicationName, description, dosage, frequency, timeOfDay, endDate } = req.body;
+    const userId = req.userId; 
 
-    }catch (error){
-        res.status(500).json({message: 'error when creating a new medication', error: error.message})
+    if (!userId) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    try {
+        const newMedication = new Medication({
+            userId,
+            medicationName,
+            description,
+            dosage,
+            frequency,
+            timeOfDay,
+            endDate
+        });
+
+        await newMedication.save();
+        res.status(201).json(newMedication);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al añadir medicamento' });
     }
 }
 
 
 const getAllMedication = async (req,res) => {
-    try{
-        const {userId} = req.userId;
-        const medications = await Medication.find(userId);
-        res.status(200).json(medications)
-    }catch(error){
-        res.status(500).json({message: 'cannot get medications', error: error.message})
+    try {
+        const userId = req.userId;
+        if (!userId) {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+        const medications = await Medication.find({ userId})
+        res.status(200).json(medications);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al obtener medicamentos' });
     }
 }
    
