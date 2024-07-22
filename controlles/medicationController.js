@@ -62,7 +62,7 @@ const deleteMedication = async (req,res) => {
     try{
         const {id} = req.params;
         const {userId} = req;
-        const medication= await User.findByIdAndDelete({_id: id, userId});
+        const medication= await Medication.findOneAndDelete({_id: id, userId});
         if(!medication){
             return res.status(404).json({message : "medication not found"})
         }
