@@ -1,7 +1,7 @@
 const Medication = require ('../models/Medication.js')
 
 const createMedication = async (req,res) => {
-    const { medicationName, description, dosage, frequency, timeOfDay, endDate } = req.body;
+    const { medicationName, description, dosage, frequency, timeOfDay, day } = req.body;
     const userId = req.userId; 
 
     if (!userId) {
@@ -16,7 +16,7 @@ const createMedication = async (req,res) => {
             dosage,
             frequency,
             timeOfDay,
-            endDate
+            day,
         });
 
         await newMedication.save();

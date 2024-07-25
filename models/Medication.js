@@ -7,8 +7,7 @@ const medicationSchema = new mongoose.Schema({
     dosage: { type: String, required: true },
     frequency: { type: String, required: true },
     timeOfDay: { type: String, required: true },
-    photo: { type: String }, 
-    endDate: {type:Date, required: true }
+    day: {type:String, required: true }
 });
 
 const Medication = mongoose.model('medication', medicationSchema);
