@@ -5,12 +5,14 @@ const {verifyToken} = require('../middlewares/authJwt.js');
 
 const {createVital, 
     getAllVital, 
+    getVitalById,
     updateVital,
     deleteVital
 } = require ('../controlles/vitalController.js');
 
 router.post('/', verifyToken, createVital);
 router.get('/', verifyToken, getAllVital);
+router.get('/', verifyToken, getVitalById)
 router.put('/:id', verifyToken, updateVital);
 router.delete('/:id', verifyToken, deleteVital)
 

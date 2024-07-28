@@ -41,12 +41,26 @@ const getAllMedication = async (req,res) => {
         res.status(500).json({ message: 'Error al obtener medicamentos' });
     }
 }
+
+const getMedicationById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { userId } = req;
+        const medication = await Medication.findOne({ _id: id, userId: userId });
+        if (!medication) {
+            return res.status(404).json({ message: "Medication not found" });
+        }
+        res.status(200).json(medication);
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving medication', error: error.message });
+    }
+};
    
 const updateMedication = async(req,res) => {
     try{
         const {id} = req.params;
         const {userId} = req;
-        const medication = Medication.findByIdAndUpdate({_id: id, userId}, req.body, {new:true})
+        const medication = await  Medication.findByIdAndUpdate({_id: id, userId: userId}, req.body, {new:true})
         if(!medication){
             return res.status(404).json({message : "medication not found"})
         }
@@ -75,4 +89,4 @@ const deleteMedication = async (req,res) => {
 }
 
 
-module.exports = {createMedication, getAllMedication, updateMedication, deleteMedication}
+module.exports = {createMedication, getAllMedication, getMedicationById, updateMedication, deleteMedication}

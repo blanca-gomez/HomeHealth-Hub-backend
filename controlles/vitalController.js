@@ -43,13 +43,27 @@ const getAllVital = async (req,res) => {
     }
 }
 
+const getVitalById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { userId } = req;
+        const vital = await Vital.findOne({ _id: id, userId: userId });
+        if (!vital) {
+            return res.status(404).json({ message: "Vital not found" });
+        }
+        res.status(200).json(medication);
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving vital', error: error.message });
+    }
+};
+
 
 
 const updateVital = async(req,res) => {
     try{
         const {id} = req.params;
         const {userId} = req;
-        const vital = Vital.findByIdAndUpdate({_id: id, userId}, req.body, {new:true})
+        const vital = Vital.findByIdAndUpdate({_id: id, userId: userId}, req.body, {new:true})
         if(!vital){
             return res.status(404).json({message : "vital not found"})
         }
@@ -77,4 +91,4 @@ const deleteVital = async (req,res) => {
 
 
 
-module.exports= {createVital, getAllVital, updateVital, deleteVital}
+module.exports= {createVital, getVitalById, getAllVital, updateVital, deleteVital}
