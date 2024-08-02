@@ -12,7 +12,7 @@ const {createVital,
 
 router.post('/', verifyToken, createVital);
 router.get('/', verifyToken, getAllVital);
-router.get('/', verifyToken, getVitalById)
+router.get('/:id', verifyToken, getVitalById)
 router.put('/:id', verifyToken, updateVital);
 router.delete('/:id', verifyToken, deleteVital)
 

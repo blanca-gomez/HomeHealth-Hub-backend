@@ -46,12 +46,12 @@ const getAllVital = async (req,res) => {
 const getVitalById = async (req, res) => {
     try {
         const { id } = req.params;
-        const { userId } = req;
+        const userId = req.userId;
         const vital = await Vital.findOne({ _id: id, userId: userId });
         if (!vital) {
             return res.status(404).json({ message: "Vital not found" });
         }
-        res.status(200).json(medication);
+        res.status(200).json(vital);
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving vital', error: error.message });
     }
@@ -59,18 +59,27 @@ const getVitalById = async (req, res) => {
 
 
 
-const updateVital = async(req,res) => {
-    try{
-        const {id} = req.params;
-        const {userId} = req;
-        const vital = Vital.findByIdAndUpdate({_id: id, userId: userId}, req.body, {new:true})
-        if(!vital){
-            return res.status(404).json({message : "vital not found"})
+const updateVital = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { userId } = req;
+        
+        if (!userId) {
+            return res.status(401).json({ message: 'Unauthorized' });
         }
-        res.status(200).json({message: 'successfully updated vital', vital })
-    }catch(error){
-        res.status(500).json({message: 'Error updating vital', error: error.message})
+        const updatedVital = await Vital.findOneAndUpdate(
+            { _id: id, userId: userId },
+            req.body,
+            { new: true }  
+        );
 
+        if (!updatedVital) {
+            return res.status(404).json({ message: 'Vital not found' });
+        }
+        res.status(200).json({ message: 'Successfully updated vital', vital: updatedVital });
+    } catch (error) {
+        console.error('Error updating vital:', error);
+        res.status(500).json({ message: 'Error updating vital', error: error.message });
     }
 }
 
