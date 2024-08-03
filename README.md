@@ -2,6 +2,10 @@
 API de salud que permite al  usuario gestionar su medicación, sus constantes vitales y sus citas médicas. El usuario puede registrarse y luego con sus credenciales iniciar sesión. Al iniciar sesión accede al dashboard, donde aparece el nombre del usuario que ha iniciado sesión, también aparece un calendario semanal para saber cuando tomar cada medicación y un apartado con la información del clima local. 
 La aplicación tambien permite añadir, editar y eliminar medicación, constantes vitales y citas médicas.
 
+## Usuario ya creado para comprobar funcionalidad.
+usuario: javi@mail.com
+contraseña: abcd1234
+
 ## Estructura
 -**Registro e inicio de sesión**: permite al usuario registrarse y acceder a su cuenta con sus datos.
 -**Dashboard**: muestra el nombre del usuario que ha iniciado sesión. Inlcuye tambiémn un calendario semanal para saber cuando tomar la medicación y la información del clima local en ºC.
